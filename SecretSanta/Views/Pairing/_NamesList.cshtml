@@ -1,0 +1,15 @@
+﻿@model SecretSanta.ViewModels.PersonsListViewModel
+@using (Html.BeginForm("SecretSantaList", "Pairing", FormMethod.Post))
+{
+    for (int i = 0; i < Model.Persons.Count; i++)
+    {
+        <div>
+            @Html.TextBoxFor(m => Model.Persons[i].FirstName)
+            @Html.TextBoxFor(m => Model.Persons[i].LastName)
+        </div>
+
+    }
+
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Get Secret Santa List</button>
+}

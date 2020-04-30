@@ -1,0 +1,41 @@
+﻿@model SecretSanta.ViewModels.PersonsListViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Enter Names to get Secret Santa List</h2>
+
+@using (Html.BeginForm("AddName", "Pairing", FormMethod.Post))
+{
+    @Html.ValidationSummary()
+    <table class="table table-bordered table-hover">
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.Person.FirstName)
+                @Html.TextBoxFor(m => m.Person.FirstName)
+            </td>
+
+            <td>
+                @Html.LabelFor(m => m.Person.LastName)
+                @Html.TextBoxFor(m => m.Person.LastName)
+            </td>
+            <td>
+                @for (int i = 0; i < Model.Persons.Count; i++)
+                {
+                    @Html.HiddenFor(m => Model.Persons[i].FirstName)
+                    @Html.HiddenFor(m => Model.Persons[i].LastName)
+                }
+
+                <button type="submit" class="btn btn-primary">Add Name</button>
+            </td>
+        </tr>
+    </table>
+    @Html.AntiForgeryToken()
+}
+
+@Html.Partial("_NamesList")
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
